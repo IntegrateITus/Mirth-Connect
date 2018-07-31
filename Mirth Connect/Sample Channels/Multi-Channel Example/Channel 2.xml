@@ -1,0 +1,257 @@
+<channel>
+  <id>06d19851-fbd2-446b-be8f-12965d966d2a</id>
+  <name>Channel 2</name>
+  <description></description>
+  <enabled>true</enabled>
+  <version>2.2.3.6825</version>
+  <lastModified>
+    <time>1380909666969</time>
+    <timezone>America/Los_Angeles</timezone>
+  </lastModified>
+  <revision>8</revision>
+  <sourceConnector>
+    <name>sourceConnector</name>
+    <properties>
+      <property name="DataType">Channel Reader</property>
+      <property name="responseValue">Destination 2</property>
+    </properties>
+    <transformer>
+      <steps/>
+      <inboundProtocol>DELIMITED</inboundProtocol>
+      <outboundProtocol>DELIMITED</outboundProtocol>
+      <inboundProperties>
+        <property name="batchGroupingColumn"></property>
+        <property name="batchMessageDelimiter"></property>
+        <property name="batchMessageDelimiterIncluded">false</property>
+        <property name="batchScript"></property>
+        <property name="batchSkipRecords">0</property>
+        <property name="batchSplitByRecord">true</property>
+        <property name="columnDelimiter">,</property>
+        <property name="columnNames"></property>
+        <property name="columnWidths"></property>
+        <property name="escapeWithDoubleQuote">true</property>
+        <property name="ignoreCR">true</property>
+        <property name="numberedRows">false</property>
+        <property name="quoteChar">&quot;</property>
+        <property name="quoteEscapeChar">\</property>
+        <property name="recordDelimiter">
+</property>
+      </inboundProperties>
+      <outboundProperties>
+        <property name="batchGroupingColumn"></property>
+        <property name="batchMessageDelimiter"></property>
+        <property name="batchMessageDelimiterIncluded">false</property>
+        <property name="batchScript"></property>
+        <property name="batchSkipRecords">0</property>
+        <property name="batchSplitByRecord">true</property>
+        <property name="columnDelimiter">,</property>
+        <property name="columnNames"></property>
+        <property name="columnWidths"></property>
+        <property name="escapeWithDoubleQuote">true</property>
+        <property name="ignoreCR">true</property>
+        <property name="numberedRows">false</property>
+        <property name="quoteChar">&quot;</property>
+        <property name="quoteEscapeChar">\</property>
+        <property name="recordDelimiter">
+</property>
+      </outboundProperties>
+    </transformer>
+    <filter>
+      <rules/>
+    </filter>
+    <transportName>Channel Reader</transportName>
+    <mode>SOURCE</mode>
+    <enabled>true</enabled>
+    <version>2.2.3.6825</version>
+  </sourceConnector>
+  <destinationConnectors>
+    <connector>
+      <name>Destination 1</name>
+      <properties>
+        <property name="DataType">Web Service Sender</property>
+        <property name="dispatcherAttachmentContents">&lt;list/&gt;</property>
+        <property name="dispatcherAttachmentNames">&lt;list/&gt;</property>
+        <property name="dispatcherAttachmentTypes">&lt;list/&gt;</property>
+        <property name="dispatcherEnvelope">&lt;soapenv:Envelope xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:soapenv=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot; xmlns:ndf=&quot;http://graphical.weather.gov/xml/DWMLgen/wsdl/ndfdXML.wsdl&quot;&gt;
+   &lt;soapenv:Header/&gt;
+   &lt;soapenv:Body&gt;
+      &lt;ndf:LatLonListZipCode soapenv:encodingStyle=&quot;http://schemas.xmlsoap.org/soap/encoding/&quot;&gt;
+         &lt;zipCodeList xsi:type=&quot;dwml:zipCodeListType&quot; xmlns:dwml=&quot;http://graphical.weather.gov/xml/DWMLgen/schema/DWML.xsd&quot;&gt;92618&lt;/zipCodeList&gt;
+      &lt;/ndf:LatLonListZipCode&gt;
+   &lt;/soapenv:Body&gt;
+&lt;/soapenv:Envelope&gt;</property>
+        <property name="dispatcherOneWay">0</property>
+        <property name="dispatcherOperation">LatLonListZipCode</property>
+        <property name="dispatcherPassword"></property>
+        <property name="dispatcherPort">{http://graphical.weather.gov/xml/DWMLgen/wsdl/ndfdXML.wsdl}ndfdXMLPort</property>
+        <property name="dispatcherReplyChannelId">sink</property>
+        <property name="dispatcherService">{http://graphical.weather.gov/xml/DWMLgen/wsdl/ndfdXML.wsdl}ndfdXML</property>
+        <property name="dispatcherSoapAction">http://graphical.weather.gov/xml/DWMLgen/wsdl/ndfdXML.wsdl#LatLonListZipCode</property>
+        <property name="dispatcherUseAuthentication">0</property>
+        <property name="dispatcherUseMtom">0</property>
+        <property name="dispatcherUsername"></property>
+        <property name="dispatcherWsdlOperations">&lt;list&gt;
+  &lt;string&gt;CornerPoints&lt;/string&gt;
+  &lt;string&gt;GmlLatLonList&lt;/string&gt;
+  &lt;string&gt;GmlTimeSeries&lt;/string&gt;
+  &lt;string&gt;LatLonListCityNames&lt;/string&gt;
+  &lt;string&gt;LatLonListLine&lt;/string&gt;
+  &lt;string&gt;LatLonListSquare&lt;/string&gt;
+  &lt;string&gt;LatLonListSubgrid&lt;/string&gt;
+  &lt;string&gt;LatLonListZipCode&lt;/string&gt;
+  &lt;string&gt;NDFDgen&lt;/string&gt;
+  &lt;string&gt;NDFDgenByDay&lt;/string&gt;
+  &lt;string&gt;NDFDgenByDayLatLonList&lt;/string&gt;
+  &lt;string&gt;NDFDgenLatLonList&lt;/string&gt;
+&lt;/list&gt;</property>
+        <property name="dispatcherWsdlUrl">http://graphical.weather.gov/xml/DWMLgen/wsdl/ndfdXML.wsdl</property>
+        <property name="host">graphical.weather.gov/xml/DWMLgen/wsdl/ndfdXML.wsdl</property>
+        <property name="queuePollInterval">200</property>
+        <property name="reconnectMillisecs">10000</property>
+        <property name="rotateQueue">0</property>
+        <property name="usePersistentQueues">0</property>
+      </properties>
+      <transformer>
+        <steps/>
+        <inboundProtocol>DELIMITED</inboundProtocol>
+        <outboundProtocol>DELIMITED</outboundProtocol>
+        <inboundProperties>
+          <property name="batchGroupingColumn"></property>
+          <property name="batchMessageDelimiter"></property>
+          <property name="batchMessageDelimiterIncluded">false</property>
+          <property name="batchScript"></property>
+          <property name="batchSkipRecords">0</property>
+          <property name="batchSplitByRecord">true</property>
+          <property name="columnDelimiter">,</property>
+          <property name="columnNames"></property>
+          <property name="columnWidths"></property>
+          <property name="escapeWithDoubleQuote">true</property>
+          <property name="ignoreCR">true</property>
+          <property name="numberedRows">false</property>
+          <property name="quoteChar">&quot;</property>
+          <property name="quoteEscapeChar">\</property>
+          <property name="recordDelimiter">
+</property>
+        </inboundProperties>
+        <outboundProperties>
+          <property name="batchGroupingColumn"></property>
+          <property name="batchMessageDelimiter"></property>
+          <property name="batchMessageDelimiterIncluded">false</property>
+          <property name="batchScript"></property>
+          <property name="batchSkipRecords">0</property>
+          <property name="batchSplitByRecord">true</property>
+          <property name="columnDelimiter">,</property>
+          <property name="columnNames"></property>
+          <property name="columnWidths"></property>
+          <property name="escapeWithDoubleQuote">true</property>
+          <property name="ignoreCR">true</property>
+          <property name="numberedRows">false</property>
+          <property name="quoteChar">&quot;</property>
+          <property name="quoteEscapeChar">\</property>
+          <property name="recordDelimiter">
+</property>
+        </outboundProperties>
+      </transformer>
+      <filter>
+        <rules/>
+      </filter>
+      <transportName>Web Service Sender</transportName>
+      <mode>DESTINATION</mode>
+      <enabled>true</enabled>
+      <version>2.2.3.6825</version>
+    </connector>
+    <connector>
+      <name>Destination 2</name>
+      <properties>
+        <property name="DataType">Channel Writer</property>
+        <property name="host">baf948eb-a3c6-4eec-9c9e-d21f685d9590</property>
+        <property name="synchronised">1</property>
+        <property name="template">${d1.message}</property>
+      </properties>
+      <transformer>
+        <steps>
+          <step>
+            <sequenceNumber>0</sequenceNumber>
+            <name>New Step</name>
+            <script>$co(&apos;d1&apos;,$r(&apos;Destination 1&apos;));</script>
+            <type>JavaScript</type>
+            <data class="map">
+              <entry>
+                <string>Script</string>
+                <string>$co(&apos;d1&apos;,$r(&apos;Destination 1&apos;));</string>
+              </entry>
+            </data>
+          </step>
+        </steps>
+        <inboundTemplate encoding="base64"></inboundTemplate>
+        <outboundTemplate encoding="base64"></outboundTemplate>
+        <inboundProtocol>DELIMITED</inboundProtocol>
+        <outboundProtocol>DELIMITED</outboundProtocol>
+        <inboundProperties>
+          <property name="batchGroupingColumn"></property>
+          <property name="batchMessageDelimiter"></property>
+          <property name="batchMessageDelimiterIncluded">false</property>
+          <property name="batchScript"></property>
+          <property name="batchSkipRecords">0</property>
+          <property name="batchSplitByRecord">true</property>
+          <property name="columnDelimiter">,</property>
+          <property name="columnNames"></property>
+          <property name="columnWidths"></property>
+          <property name="escapeWithDoubleQuote">true</property>
+          <property name="ignoreCR">true</property>
+          <property name="numberedRows">false</property>
+          <property name="quoteChar">&quot;</property>
+          <property name="quoteEscapeChar">\</property>
+          <property name="recordDelimiter">
+</property>
+        </inboundProperties>
+        <outboundProperties>
+          <property name="batchGroupingColumn"></property>
+          <property name="batchMessageDelimiter"></property>
+          <property name="batchMessageDelimiterIncluded">false</property>
+          <property name="batchScript"></property>
+          <property name="batchSkipRecords">0</property>
+          <property name="batchSplitByRecord">true</property>
+          <property name="columnDelimiter">,</property>
+          <property name="columnNames"></property>
+          <property name="columnWidths"></property>
+          <property name="escapeWithDoubleQuote">true</property>
+          <property name="ignoreCR">true</property>
+          <property name="numberedRows">false</property>
+          <property name="quoteChar">&quot;</property>
+          <property name="quoteEscapeChar">\</property>
+          <property name="recordDelimiter">
+</property>
+        </outboundProperties>
+      </transformer>
+      <filter>
+        <rules/>
+      </filter>
+      <transportName>Channel Writer</transportName>
+      <mode>DESTINATION</mode>
+      <enabled>true</enabled>
+      <version>2.2.3.6825</version>
+    </connector>
+  </destinationConnectors>
+  <properties>
+    <property name="clearGlobalChannelMap">true</property>
+    <property name="dont_store_filtered">false</property>
+    <property name="encryptData">false</property>
+    <property name="error_messages_only">false</property>
+    <property name="initialState">started</property>
+    <property name="max_message_age">-1</property>
+    <property name="store_messages">true</property>
+    <property name="synchronous">true</property>
+    <property name="transactional">false</property>
+  </properties>
+  <preprocessingScript>// Modify the message variable below to pre process data
+return message;</preprocessingScript>
+  <postprocessingScript>// This script executes once after a message has been processed
+return;</postprocessingScript>
+  <deployScript>// This script executes once when the channel is deployed
+// You only have access to the globalMap and globalChannelMap here to persist data
+return;</deployScript>
+  <shutdownScript>// This script executes once when the channel is undeployed
+// You only have access to the globalMap and globalChannelMap here to persist data
+return;</shutdownScript>
+</channel>

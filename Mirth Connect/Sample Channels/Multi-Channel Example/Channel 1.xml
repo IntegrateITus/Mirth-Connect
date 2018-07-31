@@ -1,0 +1,156 @@
+<channel>
+  <id>3f5ab859-f917-484f-b841-7c9e39174b8e</id>
+  <name>Channel 1</name>
+  <description></description>
+  <enabled>true</enabled>
+  <version>2.2.3.6825</version>
+  <lastModified>
+    <time>1380909655642</time>
+    <timezone>America/Los_Angeles</timezone>
+  </lastModified>
+  <revision>5</revision>
+  <sourceConnector>
+    <name>sourceConnector</name>
+    <properties>
+      <property name="DataType">HTTP Listener</property>
+      <property name="host">0.0.0.0</property>
+      <property name="port">9001</property>
+      <property name="receiverBodyOnly">1</property>
+      <property name="receiverCharset">UTF-8</property>
+      <property name="receiverContextPath"></property>
+      <property name="receiverResponse">Destination 1</property>
+      <property name="receiverResponseContentType">application/json</property>
+      <property name="receiverResponseHeaders">&lt;linked-hash-map/&gt;</property>
+      <property name="receiverResponseStatusCode"></property>
+      <property name="receiverTimeout">0</property>
+    </properties>
+    <transformer>
+      <steps/>
+      <inboundProtocol>DELIMITED</inboundProtocol>
+      <outboundProtocol>DELIMITED</outboundProtocol>
+      <inboundProperties>
+        <property name="batchGroupingColumn"></property>
+        <property name="batchMessageDelimiter"></property>
+        <property name="batchMessageDelimiterIncluded">false</property>
+        <property name="batchScript"></property>
+        <property name="batchSkipRecords">0</property>
+        <property name="batchSplitByRecord">true</property>
+        <property name="columnDelimiter">,</property>
+        <property name="columnNames"></property>
+        <property name="columnWidths"></property>
+        <property name="escapeWithDoubleQuote">true</property>
+        <property name="ignoreCR">true</property>
+        <property name="numberedRows">false</property>
+        <property name="quoteChar">&quot;</property>
+        <property name="quoteEscapeChar">\</property>
+        <property name="recordDelimiter">
+</property>
+      </inboundProperties>
+      <outboundProperties>
+        <property name="batchGroupingColumn"></property>
+        <property name="batchMessageDelimiter"></property>
+        <property name="batchMessageDelimiterIncluded">false</property>
+        <property name="batchScript"></property>
+        <property name="batchSkipRecords">0</property>
+        <property name="batchSplitByRecord">true</property>
+        <property name="columnDelimiter">,</property>
+        <property name="columnNames"></property>
+        <property name="columnWidths"></property>
+        <property name="escapeWithDoubleQuote">true</property>
+        <property name="ignoreCR">true</property>
+        <property name="numberedRows">false</property>
+        <property name="quoteChar">&quot;</property>
+        <property name="quoteEscapeChar">\</property>
+        <property name="recordDelimiter">
+</property>
+      </outboundProperties>
+    </transformer>
+    <filter>
+      <rules/>
+    </filter>
+    <transportName>HTTP Listener</transportName>
+    <mode>SOURCE</mode>
+    <enabled>true</enabled>
+    <version>2.2.3.6825</version>
+  </sourceConnector>
+  <destinationConnectors>
+    <connector>
+      <name>Destination 1</name>
+      <properties>
+        <property name="DataType">Channel Writer</property>
+        <property name="host">06d19851-fbd2-446b-be8f-12965d966d2a</property>
+        <property name="synchronised">1</property>
+        <property name="template">${message.encodedData}</property>
+      </properties>
+      <transformer>
+        <steps/>
+        <inboundProtocol>DELIMITED</inboundProtocol>
+        <outboundProtocol>DELIMITED</outboundProtocol>
+        <inboundProperties>
+          <property name="batchGroupingColumn"></property>
+          <property name="batchMessageDelimiter"></property>
+          <property name="batchMessageDelimiterIncluded">false</property>
+          <property name="batchScript"></property>
+          <property name="batchSkipRecords">0</property>
+          <property name="batchSplitByRecord">true</property>
+          <property name="columnDelimiter">,</property>
+          <property name="columnNames"></property>
+          <property name="columnWidths"></property>
+          <property name="escapeWithDoubleQuote">true</property>
+          <property name="ignoreCR">true</property>
+          <property name="numberedRows">false</property>
+          <property name="quoteChar">&quot;</property>
+          <property name="quoteEscapeChar">\</property>
+          <property name="recordDelimiter">
+</property>
+        </inboundProperties>
+        <outboundProperties>
+          <property name="batchGroupingColumn"></property>
+          <property name="batchMessageDelimiter"></property>
+          <property name="batchMessageDelimiterIncluded">false</property>
+          <property name="batchScript"></property>
+          <property name="batchSkipRecords">0</property>
+          <property name="batchSplitByRecord">true</property>
+          <property name="columnDelimiter">,</property>
+          <property name="columnNames"></property>
+          <property name="columnWidths"></property>
+          <property name="escapeWithDoubleQuote">true</property>
+          <property name="ignoreCR">true</property>
+          <property name="numberedRows">false</property>
+          <property name="quoteChar">&quot;</property>
+          <property name="quoteEscapeChar">\</property>
+          <property name="recordDelimiter">
+</property>
+        </outboundProperties>
+      </transformer>
+      <filter>
+        <rules/>
+      </filter>
+      <transportName>Channel Writer</transportName>
+      <mode>DESTINATION</mode>
+      <enabled>true</enabled>
+      <version>2.2.3.6825</version>
+    </connector>
+  </destinationConnectors>
+  <properties>
+    <property name="clearGlobalChannelMap">true</property>
+    <property name="dont_store_filtered">false</property>
+    <property name="encryptData">false</property>
+    <property name="error_messages_only">false</property>
+    <property name="initialState">started</property>
+    <property name="max_message_age">-1</property>
+    <property name="store_messages">true</property>
+    <property name="synchronous">true</property>
+    <property name="transactional">false</property>
+  </properties>
+  <preprocessingScript>// Modify the message variable below to pre process data
+return message;</preprocessingScript>
+  <postprocessingScript>// This script executes once after a message has been processed
+return;</postprocessingScript>
+  <deployScript>// This script executes once when the channel is deployed
+// You only have access to the globalMap and globalChannelMap here to persist data
+return;</deployScript>
+  <shutdownScript>// This script executes once when the channel is undeployed
+// You only have access to the globalMap and globalChannelMap here to persist data
+return;</shutdownScript>
+</channel>

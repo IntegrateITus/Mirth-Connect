@@ -1,0 +1,11 @@
+<s:Envelope xmlns:s="http://www.w3.org/2003/05/soap-envelope" xmlns:a="http://www.w3.org/2005/08/addressing">
+	<s:Header>
+		<a:Action s:mustUnderstand="1">urn:ihe:iti:2007:RegistryStoredQueryResponse</a:Action>
+		<a:RelatesTo>urn:uuid:a02ca8cd-86fa-4afc-a27c-616c183b2055</a:RelatesTo>
+	</s:Header>
+	<s:Body>
+		<query:AdhocQueryResponse status="Success" xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
+			<!-- Rest of AdhocQueryResponse message goes here -->
+		</query:AdhocQueryResponse>
+	</s:Body>
+</s:Envelope>

@@ -1,0 +1,1045 @@
+    <channel version="3.0.1">
+      <id>9a0cbc0b-e81d-45de-a368-4efd5109025f</id>
+      <nextMetaDataId>3</nextMetaDataId>
+      <name>HL7 V2 to V3 Vital Signs</name>
+      <description>A Channel to convert Vital Sign Observation Messages from HL7 V2.5 to V3</description>
+      <enabled>true</enabled>
+      <lastModified>
+        <time>1388300293449</time>
+        <timezone>America/Vancouver</timezone>
+      </lastModified>
+      <revision>128</revision>
+      <sourceConnector version="3.0.1">
+        <metaDataId>0</metaDataId>
+        <name>sourceConnector</name>
+        <properties class="com.mirth.connect.connectors.file.FileReceiverProperties" version="3.0.1">
+          <pollConnectorProperties version="3.0.1">
+            <pollingType>interval</pollingType>
+            <pollingHour>0</pollingHour>
+            <pollingMinute>0</pollingMinute>
+            <pollingFrequency>5000</pollingFrequency>
+          </pollConnectorProperties>
+          <responseConnectorProperties version="3.0.1">
+            <responseVariable>None</responseVariable>
+            <defaultQueueOnResponses>
+              <string>None</string>
+              <string>Auto-generate (Before processing)</string>
+            </defaultQueueOnResponses>
+            <defaultQueueOffResponses>
+              <string>None</string>
+              <string>Auto-generate (Before processing)</string>
+              <string>Auto-generate (After source transformer)</string>
+              <string>Auto-generate (Destinations completed)</string>
+              <string>Postprocessor</string>
+            </defaultQueueOffResponses>
+            <respondAfterProcessing>true</respondAfterProcessing>
+          </responseConnectorProperties>
+          <scheme>FILE</scheme>
+          <host>/Users/rezaalemy/Desktop/V2.5</host>
+          <fileFilter>*.hl7</fileFilter>
+          <regex>false</regex>
+          <directoryRecursion>false</directoryRecursion>
+          <ignoreDot>true</ignoreDot>
+          <anonymous>true</anonymous>
+          <username>anonymous</username>
+          <password>anonymous</password>
+          <timeout>10000</timeout>
+          <secure>true</secure>
+          <passive>true</passive>
+          <validateConnection>true</validateConnection>
+          <afterProcessingAction>DELETE</afterProcessingAction>
+          <moveToDirectory></moveToDirectory>
+          <moveToFileName></moveToFileName>
+          <errorReadingAction>NONE</errorReadingAction>
+          <errorResponseAction>AFTER_PROCESSING</errorResponseAction>
+          <errorMoveToDirectory></errorMoveToDirectory>
+          <errorMoveToFileName></errorMoveToFileName>
+          <checkFileAge>true</checkFileAge>
+          <fileAge>1000</fileAge>
+          <fileSizeMinimum>0</fileSizeMinimum>
+          <fileSizeMaximum></fileSizeMaximum>
+          <ignoreFileSizeMaximum>true</ignoreFileSizeMaximum>
+          <sortBy>date</sortBy>
+          <binary>false</binary>
+          <charsetEncoding>DEFAULT_ENCODING</charsetEncoding>
+          <processBatch>false</processBatch>
+        </properties>
+        <transformer version="3.0.1">
+          <steps>
+            <step>
+              <sequenceNumber>0</sequenceNumber>
+              <name>AcceptAckCode</name>
+              <script>tmp[&apos;acceptAckCode&apos;][&apos;@code&apos;] = validate(msg[&apos;MSH&apos;][&apos;MSH.15&apos;][&apos;MSH.15.1&apos;].toString(), &apos;&apos;, new Array());</script>
+              <type>Message Builder</type>
+              <data>
+                <entry>
+                  <string>Variable</string>
+                  <string>tmp[&apos;acceptAckCode&apos;][&apos;@code&apos;]</string>
+                </entry>
+                <entry>
+                  <string>Mapping</string>
+                  <string>msg[&apos;MSH&apos;][&apos;MSH.15&apos;][&apos;MSH.15.1&apos;].toString()</string>
+                </entry>
+                <entry>
+                  <string>DefaultValue</string>
+                  <string></string>
+                </entry>
+                <entry>
+                  <string>RegularExpressions</string>
+                  <list/>
+                </entry>
+              </data>
+            </step>
+            <step>
+              <sequenceNumber>1</sequenceNumber>
+              <name>AdministrativeGenderCode</name>
+              <script>tmp[&apos;controlActProcess&apos;][&apos;subject&apos;][&apos;observationBattery&apos;][&apos;recordTarget&apos;][&apos;patient&apos;][&apos;patientPerson&apos;][&apos;administrativeGenderCode&apos;][&apos;@code&apos;] = validate(msg[&apos;PID&apos;][&apos;PID.8&apos;][&apos;PID.8.1&apos;].toString(), &apos;&apos;, new Array());</script>
+              <type>Message Builder</type>
+              <data>
+                <entry>
+                  <string>Variable</string>
+                  <string>tmp[&apos;controlActProcess&apos;][&apos;subject&apos;][&apos;observationBattery&apos;][&apos;recordTarget&apos;][&apos;patient&apos;][&apos;patientPerson&apos;][&apos;administrativeGenderCode&apos;][&apos;@code&apos;]</string>
+                </entry>
+                <entry>
+                  <string>Mapping</string>
+                  <string>msg[&apos;PID&apos;][&apos;PID.8&apos;][&apos;PID.8.1&apos;].toString()</string>
+                </entry>
+                <entry>
+                  <string>DefaultValue</string>
+                  <string></string>
+                </entry>
+                <entry>
+                  <string>RegularExpressions</string>
+                  <list/>
+                </entry>
+              </data>
+            </step>
+            <step>
+              <sequenceNumber>2</sequenceNumber>
+              <name>BirthTime</name>
+              <script>tmp[&apos;controlActProcess&apos;][&apos;subject&apos;][&apos;observationBattery&apos;][&apos;recordTarget&apos;][&apos;patient&apos;][&apos;patientPerson&apos;][&apos;birthTime&apos;][&apos;@value&apos;] = validate(msg[&apos;PID&apos;][&apos;PID.7&apos;][&apos;PID.7.1&apos;].toString(), &apos;&apos;, new Array());</script>
+              <type>Message Builder</type>
+              <data>
+                <entry>
+                  <string>Variable</string>
+                  <string>tmp[&apos;controlActProcess&apos;][&apos;subject&apos;][&apos;observationBattery&apos;][&apos;recordTarget&apos;][&apos;patient&apos;][&apos;patientPerson&apos;][&apos;birthTime&apos;][&apos;@value&apos;]</string>
+                </entry>
+                <entry>
+                  <string>Mapping</string>
+                  <string>msg[&apos;PID&apos;][&apos;PID.7&apos;][&apos;PID.7.1&apos;].toString()</string>
+                </entry>
+                <entry>
+                  <string>DefaultValue</string>
+                  <string></string>
+                </entry>
+                <entry>
+                  <string>RegularExpressions</string>
+                  <list/>
+                </entry>
+              </data>
+            </step>
+            <step>
+              <sequenceNumber>3</sequenceNumber>
+              <name>ObservationBatteryCode</name>
+              <script>tmp[&apos;controlActProcess&apos;][&apos;subject&apos;][&apos;observationBattery&apos;][&apos;code&apos;][&apos;@code&apos;] = validate(msg[&apos;OBR&apos;][&apos;OBR.4&apos;][&apos;OBR.4.1&apos;].toString(), &apos;&apos;, new Array());</script>
+              <type>Message Builder</type>
+              <data>
+                <entry>
+                  <string>Variable</string>
+                  <string>tmp[&apos;controlActProcess&apos;][&apos;subject&apos;][&apos;observationBattery&apos;][&apos;code&apos;][&apos;@code&apos;]</string>
+                </entry>
+                <entry>
+                  <string>Mapping</string>
+                  <string>msg[&apos;OBR&apos;][&apos;OBR.4&apos;][&apos;OBR.4.1&apos;].toString()</string>
+                </entry>
+                <entry>
+                  <string>DefaultValue</string>
+                  <string></string>
+                </entry>
+                <entry>
+                  <string>RegularExpressions</string>
+                  <list/>
+                </entry>
+              </data>
+            </step>
+            <step>
+              <sequenceNumber>4</sequenceNumber>
+              <name>ObservationBatteryCodeName</name>
+              <script>tmp[&apos;controlActProcess&apos;][&apos;subject&apos;][&apos;observationBattery&apos;][&apos;code&apos;][&apos;@displayName&apos;] = validate(msg[&apos;OBR&apos;][&apos;OBR.4&apos;][&apos;OBR.4.2&apos;].toString(), &apos;&apos;, new Array());</script>
+              <type>Message Builder</type>
+              <data>
+                <entry>
+                  <string>Variable</string>
+                  <string>tmp[&apos;controlActProcess&apos;][&apos;subject&apos;][&apos;observationBattery&apos;][&apos;code&apos;][&apos;@displayName&apos;]</string>
+                </entry>
+                <entry>
+                  <string>Mapping</string>
+                  <string>msg[&apos;OBR&apos;][&apos;OBR.4&apos;][&apos;OBR.4.2&apos;].toString()</string>
+                </entry>
+                <entry>
+                  <string>DefaultValue</string>
+                  <string></string>
+                </entry>
+                <entry>
+                  <string>RegularExpressions</string>
+                  <list/>
+                </entry>
+              </data>
+            </step>
+            <step>
+              <sequenceNumber>5</sequenceNumber>
+              <name>ObservationBatteryId</name>
+              <script>tmp[&apos;controlActProcess&apos;][&apos;subject&apos;][&apos;observationBattery&apos;][&apos;id&apos;][&apos;@extension&apos;] = validate(msg[&apos;OBR&apos;][&apos;OBR.3&apos;][&apos;OBR.3.1&apos;].toString(), &apos;&apos;, new Array());</script>
+              <type>Message Builder</type>
+              <data>
+                <entry>
+                  <string>Variable</string>
+                  <string>tmp[&apos;controlActProcess&apos;][&apos;subject&apos;][&apos;observationBattery&apos;][&apos;id&apos;][&apos;@extension&apos;]</string>
+                </entry>
+                <entry>
+                  <string>Mapping</string>
+                  <string>msg[&apos;OBR&apos;][&apos;OBR.3&apos;][&apos;OBR.3.1&apos;].toString()</string>
+                </entry>
+                <entry>
+                  <string>DefaultValue</string>
+                  <string></string>
+                </entry>
+                <entry>
+                  <string>RegularExpressions</string>
+                  <list/>
+                </entry>
+              </data>
+            </step>
+            <step>
+              <sequenceNumber>6</sequenceNumber>
+              <name>PatientFamilyName</name>
+              <script>tmp[&apos;controlActProcess&apos;][&apos;subject&apos;][&apos;observationBattery&apos;][&apos;recordTarget&apos;][&apos;patient&apos;][&apos;patientPerson&apos;][&apos;name&apos;][&apos;family&apos;] = validate(msg[&apos;PID&apos;][&apos;PID.5&apos;][&apos;PID.5.2&apos;].toString(), &apos;&apos;, new Array());</script>
+              <type>Message Builder</type>
+              <data>
+                <entry>
+                  <string>Variable</string>
+                  <string>tmp[&apos;controlActProcess&apos;][&apos;subject&apos;][&apos;observationBattery&apos;][&apos;recordTarget&apos;][&apos;patient&apos;][&apos;patientPerson&apos;][&apos;name&apos;][&apos;family&apos;]</string>
+                </entry>
+                <entry>
+                  <string>Mapping</string>
+                  <string>msg[&apos;PID&apos;][&apos;PID.5&apos;][&apos;PID.5.2&apos;].toString()</string>
+                </entry>
+                <entry>
+                  <string>DefaultValue</string>
+                  <string></string>
+                </entry>
+                <entry>
+                  <string>RegularExpressions</string>
+                  <list/>
+                </entry>
+              </data>
+            </step>
+            <step>
+              <sequenceNumber>7</sequenceNumber>
+              <name>PatientGivenName</name>
+              <script>tmp[&apos;controlActProcess&apos;][&apos;subject&apos;][&apos;observationBattery&apos;][&apos;recordTarget&apos;][&apos;patient&apos;][&apos;patientPerson&apos;][&apos;name&apos;][&apos;given&apos;] = validate(msg[&apos;PID&apos;][&apos;PID.5&apos;][&apos;PID.5.1&apos;].toString(), &apos;&apos;, new Array());</script>
+              <type>Message Builder</type>
+              <data>
+                <entry>
+                  <string>Variable</string>
+                  <string>tmp[&apos;controlActProcess&apos;][&apos;subject&apos;][&apos;observationBattery&apos;][&apos;recordTarget&apos;][&apos;patient&apos;][&apos;patientPerson&apos;][&apos;name&apos;][&apos;given&apos;]</string>
+                </entry>
+                <entry>
+                  <string>Mapping</string>
+                  <string>msg[&apos;PID&apos;][&apos;PID.5&apos;][&apos;PID.5.1&apos;].toString()</string>
+                </entry>
+                <entry>
+                  <string>DefaultValue</string>
+                  <string></string>
+                </entry>
+                <entry>
+                  <string>RegularExpressions</string>
+                  <list/>
+                </entry>
+              </data>
+            </step>
+            <step>
+              <sequenceNumber>8</sequenceNumber>
+              <name>PatientId</name>
+              <script>tmp[&apos;controlActProcess&apos;][&apos;subject&apos;][&apos;observationBattery&apos;][&apos;recordTarget&apos;][&apos;patient&apos;][&apos;id&apos;][&apos;@extension&apos;] = validate(msg[&apos;PID&apos;][&apos;PID.2&apos;][&apos;PID.2.1&apos;].toString(), &apos;&apos;, new Array());</script>
+              <type>Message Builder</type>
+              <data>
+                <entry>
+                  <string>Variable</string>
+                  <string>tmp[&apos;controlActProcess&apos;][&apos;subject&apos;][&apos;observationBattery&apos;][&apos;recordTarget&apos;][&apos;patient&apos;][&apos;id&apos;][&apos;@extension&apos;]</string>
+                </entry>
+                <entry>
+                  <string>Mapping</string>
+                  <string>msg[&apos;PID&apos;][&apos;PID.2&apos;][&apos;PID.2.1&apos;].toString()</string>
+                </entry>
+                <entry>
+                  <string>DefaultValue</string>
+                  <string></string>
+                </entry>
+                <entry>
+                  <string>RegularExpressions</string>
+                  <list/>
+                </entry>
+              </data>
+            </step>
+            <step>
+              <sequenceNumber>9</sequenceNumber>
+              <name>ProcessingCode</name>
+              <script>tmp[&apos;processingCode&apos;][&apos;@code&apos;] = validate(msg[&apos;MSH&apos;][&apos;MSH.11&apos;][&apos;MSH.11.1&apos;].toString(), &apos;&apos;, new Array());</script>
+              <type>Message Builder</type>
+              <data>
+                <entry>
+                  <string>Variable</string>
+                  <string>tmp[&apos;processingCode&apos;][&apos;@code&apos;]</string>
+                </entry>
+                <entry>
+                  <string>Mapping</string>
+                  <string>msg[&apos;MSH&apos;][&apos;MSH.11&apos;][&apos;MSH.11.1&apos;].toString()</string>
+                </entry>
+                <entry>
+                  <string>DefaultValue</string>
+                  <string></string>
+                </entry>
+                <entry>
+                  <string>RegularExpressions</string>
+                  <list/>
+                </entry>
+              </data>
+            </step>
+            <step>
+              <sequenceNumber>10</sequenceNumber>
+              <name>CreateRepeatingOBXSegments</name>
+              <script>for (var i =0; i&lt;msg[&apos;OBX&apos;].length(); i++){
+    	var cmp=createSegment(&apos;component1&apos;,
+    		tmp[&apos;controlActProcess&apos;][&apos;subject&apos;][&apos;observationBattery&apos;],i);
+    	cmp[&apos;@typeCode&apos;]=&apos;COMP&apos;;
+    	cmp[&apos;@contextControlCode&apos;]=&apos;AP&apos;;
+    	cmp[&apos;@contextConductionInd&apos;]=&apos;true&apos;;
+    }</script>
+              <type>JavaScript</type>
+              <data>
+                <entry>
+                  <string>Script</string>
+                  <string>for (var i =0; i&lt;msg[&apos;OBX&apos;].length(); i++){
+    	var cmp=createSegment(&apos;component1&apos;,
+    		tmp[&apos;controlActProcess&apos;][&apos;subject&apos;][&apos;observationBattery&apos;],i);
+    	cmp[&apos;@typeCode&apos;]=&apos;COMP&apos;;
+    	cmp[&apos;@contextControlCode&apos;]=&apos;AP&apos;;
+    	cmp[&apos;@contextConductionInd&apos;]=&apos;true&apos;;
+    }</string>
+                </entry>
+              </data>
+            </step>
+            <step>
+              <sequenceNumber>11</sequenceNumber>
+              <name>AddSequenceNumberForOBXSegments</name>
+              <script>for(var i = 0;i&lt;msg[&apos;OBX&apos;].length();i++){
+    	var cmp=createSegment(&apos;sequenceNumber&apos;,
+    		tmp[&apos;controlActProcess&apos;][&apos;subject&apos;][&apos;observationBattery&apos;][&apos;component1&apos;][i])
+    	cmp[&apos;@value&apos;]=msg[&apos;OBX&apos;][i][&apos;OBX.1&apos;][&apos;OBX.1.1&apos;].toString();
+    }</script>
+              <type>JavaScript</type>
+              <data>
+                <entry>
+                  <string>Script</string>
+                  <string>for(var i = 0;i&lt;msg[&apos;OBX&apos;].length();i++){
+    	var cmp=createSegment(&apos;sequenceNumber&apos;,
+    		tmp[&apos;controlActProcess&apos;][&apos;subject&apos;][&apos;observationBattery&apos;][&apos;component1&apos;][i])
+    	cmp[&apos;@value&apos;]=msg[&apos;OBX&apos;][i][&apos;OBX.1&apos;][&apos;OBX.1.1&apos;].toString();
+    }</string>
+                </entry>
+              </data>
+            </step>
+            <step>
+              <sequenceNumber>12</sequenceNumber>
+              <name>AddObservationEventForOBXSegments</name>
+              <script>for(var i = 0;i&lt;msg[&apos;OBX&apos;].length();i++){
+    	var cmp=createSegment(&apos;observationEvent&apos;,
+    		tmp[&apos;controlActProcess&apos;][&apos;subject&apos;][&apos;observationBattery&apos;][&apos;component1&apos;][i])
+    	cmp[&apos;@classCode&apos;]=&quot;OBS&quot;;
+    	cmp[&apos;@moodCode&apos;]=&quot;EVN&quot;;
+    }</script>
+              <type>JavaScript</type>
+              <data>
+                <entry>
+                  <string>Script</string>
+                  <string>for(var i = 0;i&lt;msg[&apos;OBX&apos;].length();i++){
+    	var cmp=createSegment(&apos;observationEvent&apos;,
+    		tmp[&apos;controlActProcess&apos;][&apos;subject&apos;][&apos;observationBattery&apos;][&apos;component1&apos;][i])
+    	cmp[&apos;@classCode&apos;]=&quot;OBS&quot;;
+    	cmp[&apos;@moodCode&apos;]=&quot;EVN&quot;;
+    }</string>
+                </entry>
+              </data>
+            </step>
+            <step>
+              <sequenceNumber>13</sequenceNumber>
+              <name>AddCodeForObservationEvents</name>
+              <script>for(var i = 0;i&lt;msg[&apos;OBX&apos;].length();i++){
+    	var cmp=createSegment(&apos;code&apos;,
+    		tmp[&apos;controlActProcess&apos;][&apos;subject&apos;][&apos;observationBattery&apos;][&apos;component1&apos;][i][&apos;observationEvent&apos;])
+    	cmp[&apos;@code&apos;]=msg[&apos;OBX&apos;][i][&apos;OBX.3&apos;][&apos;OBX.3.1&apos;].toString();
+    	cmp[&apos;@codeSystem&apos;]=&apos;2.16.840.1.113883.6.5&apos;;
+    	cmp[&apos;@codeSystemName&apos;]=msg[&apos;OBX&apos;][i][&apos;OBX.3&apos;][&apos;OBX.3.3&apos;].toString();;
+    	cmp[&apos;@displayName&apos;]=msg[&apos;OBX&apos;][i][&apos;OBX.3&apos;][&apos;OBX.3.2&apos;].toString();;
+    }</script>
+              <type>JavaScript</type>
+              <data>
+                <entry>
+                  <string>Script</string>
+                  <string>for(var i = 0;i&lt;msg[&apos;OBX&apos;].length();i++){
+    	var cmp=createSegment(&apos;code&apos;,
+    		tmp[&apos;controlActProcess&apos;][&apos;subject&apos;][&apos;observationBattery&apos;][&apos;component1&apos;][i][&apos;observationEvent&apos;])
+    	cmp[&apos;@code&apos;]=msg[&apos;OBX&apos;][i][&apos;OBX.3&apos;][&apos;OBX.3.1&apos;].toString();
+    	cmp[&apos;@codeSystem&apos;]=&apos;2.16.840.1.113883.6.5&apos;;
+    	cmp[&apos;@codeSystemName&apos;]=msg[&apos;OBX&apos;][i][&apos;OBX.3&apos;][&apos;OBX.3.3&apos;].toString();;
+    	cmp[&apos;@displayName&apos;]=msg[&apos;OBX&apos;][i][&apos;OBX.3&apos;][&apos;OBX.3.2&apos;].toString();;
+    }</string>
+                </entry>
+              </data>
+            </step>
+            <step>
+              <sequenceNumber>14</sequenceNumber>
+              <name>AddVaueAndStatusAndTimeForObservationEvents</name>
+              <script>for(var i = 0;i&lt;msg[&apos;OBX&apos;].length();i++){
+    	var cmp=createSegment(&apos;statusCode&apos;,
+    		tmp[&apos;controlActProcess&apos;][&apos;subject&apos;][&apos;observationBattery&apos;][&apos;component1&apos;][i][&apos;observationEvent&apos;])
+    	cmp[&apos;@code&apos;]=&apos;complete&apos;;
+    	cmp=createSegment(&apos;effectiveTime&apos;,
+    		tmp[&apos;controlActProcess&apos;][&apos;subject&apos;][&apos;observationBattery&apos;][&apos;component1&apos;][i][&apos;observationEvent&apos;])
+    	cmp[&apos;@value&apos;]=msg[&apos;OBX&apos;][i][&apos;OBX.14&apos;][&apos;OBX.14.1&apos;].toString();
+    	cmp=createSegment(&apos;value&apos;,
+    		tmp[&apos;controlActProcess&apos;][&apos;subject&apos;][&apos;observationBattery&apos;][&apos;component1&apos;][i][&apos;observationEvent&apos;])
+    	cmp[&apos;@value&apos;]=msg[&apos;OBX&apos;][i][&apos;OBX.5&apos;][&apos;OBX.5.1&apos;].toString();
+    	cmp[&apos;@unit&apos;]=msg[&apos;OBX&apos;][i][&apos;OBX.6&apos;][&apos;OBX.6.1&apos;].toString();
+    	cmp[&apos;@type&apos;]=&quot;PQ&quot;;
+    	cmp[&apos;@type&apos;].setName(&apos;xsi:type&apos;);
+    }</script>
+              <type>JavaScript</type>
+              <data>
+                <entry>
+                  <string>Script</string>
+                  <string>for(var i = 0;i&lt;msg[&apos;OBX&apos;].length();i++){
+    	var cmp=createSegment(&apos;statusCode&apos;,
+    		tmp[&apos;controlActProcess&apos;][&apos;subject&apos;][&apos;observationBattery&apos;][&apos;component1&apos;][i][&apos;observationEvent&apos;])
+    	cmp[&apos;@code&apos;]=&apos;complete&apos;;
+    	cmp=createSegment(&apos;effectiveTime&apos;,
+    		tmp[&apos;controlActProcess&apos;][&apos;subject&apos;][&apos;observationBattery&apos;][&apos;component1&apos;][i][&apos;observationEvent&apos;])
+    	cmp[&apos;@value&apos;]=msg[&apos;OBX&apos;][i][&apos;OBX.14&apos;][&apos;OBX.14.1&apos;].toString();
+    	cmp=createSegment(&apos;value&apos;,
+    		tmp[&apos;controlActProcess&apos;][&apos;subject&apos;][&apos;observationBattery&apos;][&apos;component1&apos;][i][&apos;observationEvent&apos;])
+    	cmp[&apos;@value&apos;]=msg[&apos;OBX&apos;][i][&apos;OBX.5&apos;][&apos;OBX.5.1&apos;].toString();
+    	cmp[&apos;@unit&apos;]=msg[&apos;OBX&apos;][i][&apos;OBX.6&apos;][&apos;OBX.6.1&apos;].toString();
+    	cmp[&apos;@type&apos;]=&quot;PQ&quot;;
+    	cmp[&apos;@type&apos;].setName(&apos;xsi:type&apos;);
+    }</string>
+                </entry>
+              </data>
+            </step>
+            <step>
+              <sequenceNumber>15</sequenceNumber>
+              <name>AddReferenceRangeForObservationEvents</name>
+              <script>for(var i = 0;i&lt;msg[&apos;OBX&apos;].length();i++){
+    	var cmp=createSegment(&apos;referenceRange&apos;,
+    		tmp[&apos;controlActProcess&apos;][&apos;subject&apos;][&apos;observationBattery&apos;][&apos;component1&apos;][i][&apos;observationEvent&apos;])
+    	cmp[&apos;@typeCode&apos;]=&apos;REFV&apos;;
+    	cmp=createSegment(&apos;interpretationRange&apos;,cmp);
+    	cmp[&apos;@classCode&apos;]=&apos;OBS&apos;;
+    	cmp[&apos;@moodCode&apos;]=&apos;EVN.CRT&apos;;
+    	createSegment(&apos;value&apos;,cmp);
+    	createSegment(&apos;interpretationCode&apos;,cmp)
+    		[&apos;@code&apos;]=msg[&apos;OBX&apos;][i][&apos;OBX.8&apos;][&apos;OBX.8.1&apos;].toString();
+    	cmp[&apos;value&apos;]=msg[&apos;OBX&apos;][i][&apos;OBX.7&apos;][&apos;OBX.7.1&apos;].toString();
+    	cmp[&apos;value&apos;][&apos;@type&apos;]=&apos;ST&apos;;
+    	cmp[&apos;value&apos;][&apos;@type&apos;].setName(&apos;xsi:type&apos;);
+    }</script>
+              <type>JavaScript</type>
+              <data>
+                <entry>
+                  <string>Script</string>
+                  <string>for(var i = 0;i&lt;msg[&apos;OBX&apos;].length();i++){
+    	var cmp=createSegment(&apos;referenceRange&apos;,
+    		tmp[&apos;controlActProcess&apos;][&apos;subject&apos;][&apos;observationBattery&apos;][&apos;component1&apos;][i][&apos;observationEvent&apos;])
+    	cmp[&apos;@typeCode&apos;]=&apos;REFV&apos;;
+    	cmp=createSegment(&apos;interpretationRange&apos;,cmp);
+    	cmp[&apos;@classCode&apos;]=&apos;OBS&apos;;
+    	cmp[&apos;@moodCode&apos;]=&apos;EVN.CRT&apos;;
+    	createSegment(&apos;value&apos;,cmp);
+    	createSegment(&apos;interpretationCode&apos;,cmp)
+    		[&apos;@code&apos;]=msg[&apos;OBX&apos;][i][&apos;OBX.8&apos;][&apos;OBX.8.1&apos;].toString();
+    	cmp[&apos;value&apos;]=msg[&apos;OBX&apos;][i][&apos;OBX.7&apos;][&apos;OBX.7.1&apos;].toString();
+    	cmp[&apos;value&apos;][&apos;@type&apos;]=&apos;ST&apos;;
+    	cmp[&apos;value&apos;][&apos;@type&apos;].setName(&apos;xsi:type&apos;);
+    }</string>
+                </entry>
+              </data>
+            </step>
+          </steps>
+          <inboundTemplate encoding="base64">TVNIfF5+XCZ8VlNNMDAxfE1JUlRIX0NPTk5FQ1R8SElTMDAxfE1JUlRIX0NPTk5FQ1R8MjAxMDA1
+    MTEyMjA1MjV8fE9SVV5SMDF8TVNHMDAwMDAwMXxQfDIuNXx8fE5FfE5FfENPfDg4NTkvMXxFUy1D
+    Tw1QSUR8fDY1MzcwNzd8NjUzNzA3N15eXl5DQ3x8QU5EUkVTIEZFTElQRV5GRVJOQU5ERVogQ09S
+    VEVTfHwxOTg2MDcwNXxNDU9CUnwxfHxWUzEyMzQwMDAwfDI4NTYyLTdeVml0YWwgU2lnbnNeTE4N
+    T0JYfDF8Tk18MjcxNjQ5MDA2XlN5c3RvbGljIGJsb29kIHByZXNzdXJlXlNOT01FRC1DVHx8MTMy
+    fG1tW0hnXXw5MC0xMjB8SHx8fEZ8fHwyMDEwMDUxMTIyMDUyNQ1PQlh8MnxOTXwyNzE2NTAwMDZe
+    RGlhc3RvbGljIGJsb29kIHByZXNzdXJlXlNOT01FRC1DVHx8ODZ8bW1bSGddfDYwLTgwfEh8fHxG
+    fHx8MjAxMDA1MTEyMjA1MjUNT0JYfDN8Tk18Njc5NzAwMV5NZWFuIGJsb29kIHByZXNzdXJlXlNO
+    T01FRC1DVHx8OTR8bW1bSGddfDkyLTk2fE58fHxGfHx8MjAxMDA1MTEyMjA1MjUNT0JYfDR8Tk18
+    Mzg2NzI1MDA3XkJvZHkgdGVtcGVyYXR1cmVeU05PTUVELUNUfHwzN3xDfDM3fE58fHxGfHx8MjAx
+    MDA1MTEyMjA1MjUNT0JYfDV8Tk18Nzg1NjQwMDleUHVsc2UgcmF0ZV5TTk9NRUQtQ1R8fDgwfGJw
+    bXw2MC0xMDB8Tnx8fEZ8fHwyMDEwMDUxMTIyMDUyNQ1PQlh8NnxOTXw0MzEzMTQwMDReU3BPMl5T
+    Tk9NRUQtQ1R8fDkwfCV8OTQtMTAwfEx8fHxGfHx8MjAxMDA1MTEyMjA1MjU=</inboundTemplate>
+          <outboundTemplate encoding="base64">PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPFBPTEJfSU4yMjQyMDBVVjAx
+    IHhtbG5zOmhsNz0idXJuOmhsNy1vcmc6djMiIHhtbG5zOnhzaT0iaHR0cDovL3d3dy53My5vcmcv
+    MjAwMS9YTUxTY2hlbWEtaW5zdGFuY2UiIElUU1ZlcnNpb249IlhNTF8xLjAiPgogICAgPHRlbXBs
+    YXRlSWQgZXh0ZW5zaW9uPSJWU19STTIwMDkwMUNPMDEiIGFzc2lnbmluZ0F1dGhvcml0eU5hbWU9
+    Ikhvc3BpdGFsSm9yZ2VIVXJpYmUiLz4KICAgIDxpZCBleHRlbnNpb249Ik1TRzAwMDAwMDEiLz4K
+    ICAgIDxjcmVhdGlvblRpbWUgdmFsdWU9IjIwMTAwNTExMjIwNTI1Ii8+CiAgICA8aW50ZXJhY3Rp
+    b25JZCByb290PSIyLjE2Ljg0MC4xLjExMzg4My4xLjYiIGV4dGVuc2lvbj0iUE9MQl9JTjIyNDIw
+    MlVWMDEiLz4KICAgIDxwcm9jZXNzaW5nQ29kZSBjb2RlPSJQIi8+CiAgICA8cHJvY2Vzc2luZ01v
+    ZGVDb2RlIGNvZGU9IlQiLz4KICAgIDxhY2NlcHRBY2tDb2RlIGNvZGU9Ik5FIi8+CiAgICA8cmVj
+    ZWl2ZXIgdHlwZUNvZGU9IlJDViI+CiAgICAgICAgPGRldmljZSBjbGFzc0NvZGU9IkRFViIgZGV0
+    ZXJtaW5lckNvZGU9IklOU1RBTkNFIj4KICAgICAgICAgICAgPGlkIGV4dGVuc2lvbj0iSElTMDAx
+    Ii8+CiAgICAgICAgPC9kZXZpY2U+CiAgICA8L3JlY2VpdmVyPgogICAgPHNlbmRlciB0eXBlQ29k
+    ZT0iU05EIj4KICAgICAgICA8ZGV2aWNlIGNsYXNzQ29kZT0iREVWIiBkZXRlcm1pbmVyQ29kZT0i
+    SU5TVEFOQ0UiPgogICAgICAgICAgICA8aWQgZXh0ZW5zaW9uPSJWU00wMDEiLz4KICAgICAgICA8
+    L2RldmljZT4KICAgIDwvc2VuZGVyPgogICAgPGNvbnRyb2xBY3RQcm9jZXNzIGNsYXNzQ29kZT0i
+    Q0FDVCIgbW9vZENvZGU9IkVWTiI+CiAgICAgICAgPGNvZGUgY29kZT0iUE9MQl9URTAwNDIwMlVW
+    MDEiIGNvZGVTeXN0ZW09IjIuMTYuODQwLjEuMTEzODgzLjEuMTEuMjAyOTkiIGNvZGVTeXN0ZW1O
+    YW1lPSJMYWJvcmF0b3J5VHJpZ2dlckV2ZW50VHlwZSIgZGlzcGxheU5hbWU9IlJlc3VsdCBDb21w
+    bGV0ZSIvPgogICAgICAgIDxsYW5ndWFnZUNvZGUgY29kZT0iZXMtY28iIGNvZGVTeXN0ZW09IjIu
+    MTYuODQwLjEuMTEzODgzLjEuMTEuMTE1MjYiIGNvZGVTeXN0ZW1OYW1lPSJIdW1hbkxhbmd1YWdl
+    IiBkaXNwbGF5TmFtZT0iRXNwYW5vbCBDb2xvbWJpYSIvPgogICAgICAgIDxzdWJqZWN0IHR5cGVD
+    b2RlPSJTVUJKIiBjb250ZXh0Q29uZHVjdGlvbkluZD0iZmFsc2UiPgogICAgICAgICAgICA8b2Jz
+    ZXJ2YXRpb25CYXR0ZXJ5IGNsYXNzQ29kZT0iQkFUVEVSWSIgbW9vZENvZGU9IkVWTiI+CiAgICAg
+    ICAgICAgICAgICA8aWQgZXh0ZW5zaW9uPSJWUzEyMzQwMDAwIi8+CiAgICAgICAgICAgICAgICA8
+    Y29kZSBjb2RlPSIyODU2Mi03IiBjb2RlU3lzdGVtPSIyLjE2Ljg0MC4xLjExMzg4My42LjEiIGNv
+    ZGVTeXN0ZW1OYW1lPSJMT0lOQyIgZGlzcGxheU5hbWU9IlZpdGFsIFNpZ25zIi8+CiAgICAgICAg
+    ICAgICAgICA8c3RhdHVzQ29kZSBjb2RlPSJjb21wbGV0ZSIvPgogICAgICAgICAgICAgICAgPHJl
+    Y29yZFRhcmdldCB0eXBlQ29kZT0iUkNUIiBjb250ZXh0Q29udHJvbENvZGU9Ik9QIj4KICAgICAg
+    ICAgICAgICAgICAgICA8cGF0aWVudCBjbGFzc0NvZGU9IlBBVCI+CiAgICAgICAgICAgICAgICAg
+    ICAgICAgIDxpZCBleHRlbnNpb249IjY1MzcwNzciLz4KICAgICAgICAgICAgICAgICAgICAgICAg
+    PHBhdGllbnRQZXJzb24gY2xhc3NDb2RlPSJQU04iIGRldGVybWluZXJDb2RlPSJJTlNUQU5DRSI+
+    CiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8bmFtZT4KICAgICAgICAgICAgICAgICAgICAg
+    ICAgICAgICAgICA8Z2l2ZW4+QU5EUkVTIEZFTElQRTwvZ2l2ZW4+CiAgICAgICAgICAgICAgICAg
+    ICAgICAgICAgICAgICAgPGZhbWlseT5GRVJOQU5ERVogQ09SVEVTPC9mYW1pbHk+CiAgICAgICAg
+    ICAgICAgICAgICAgICAgICAgICA8L25hbWU+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8
+    YWRtaW5pc3RyYXRpdmVHZW5kZXJDb2RlIGNvZGU9Ik0iIGNvZGVTeXN0ZW09IjIuMTYuODQwLjEu
+    MTEzODgzLjUuMSIgY29kZVN5c3RlbU5hbWU9IkFkbWluaXN0cmF0aXZlR2VuZGVyIi8+CiAgICAg
+    ICAgICAgICAgICAgICAgICAgICAgICA8YmlydGhUaW1lIHZhbHVlPSIxOTg2MDcwNSIvPgogICAg
+    ICAgICAgICAgICAgICAgICAgICA8L3BhdGllbnRQZXJzb24+CiAgICAgICAgICAgICAgICAgICAg
+    PC9wYXRpZW50PgogICAgICAgICAgICAgICAgPC9yZWNvcmRUYXJnZXQ+CiAgICAgICAgICAgICAg
+    ICA8YXV0aG9yIHR5cGVDb2RlPSJBVVQiPgogICAgICAgICAgICAgICAgICAgIDx0aW1lIHZhbHVl
+    PSIyMDEwMDUxMTIyMDUyNSIvPgogICAgICAgICAgICAgICAgICAgIDxhc3NpZ25lZEVudGl0eSBj
+    bGFzc0NvZGU9IkFTU0lHTkVEIj4KICAgICAgICAgICAgICAgICAgICAgICAgPGFzc2lnbmVkRGV2
+    aWNlIGNsYXNzQ29kZT0iREVWIiBkZXRlcm1pbmVyQ29kZT0iSU5TVEFOQ0UiPgogICAgICAgICAg
+    ICAgICAgICAgICAgICAgICAgPGlkIGV4dGVuc2lvbj0iVlNNMDAxIi8+CiAgICAgICAgICAgICAg
+    ICAgICAgICAgICAgICA8bWFudWZhY3R1cmVyTW9kZWxOYW1lIGNvZGU9IlZTTSIgY29kZVN5c3Rl
+    bT0iQmlvbWVkaWNhbERldmljZSIgZGlzcGxheU5hbWU9IlZpdGFsIFNpZ25zIE1vbml0b3IiLz4K
+    ICAgICAgICAgICAgICAgICAgICAgICAgPC9hc3NpZ25lZERldmljZT4KICAgICAgICAgICAgICAg
+    ICAgICA8L2Fzc2lnbmVkRW50aXR5PgogICAgICAgICAgICAgICAgPC9hdXRob3I+CiAgICAgICAg
+    ICAgIDwvb2JzZXJ2YXRpb25CYXR0ZXJ5PgogICAgICAgIDwvc3ViamVjdD4KICAgIDwvY29udHJv
+    bEFjdFByb2Nlc3M+CjwvUE9MQl9JTjIyNDIwMFVWMDE+</outboundTemplate>
+          <inboundDataType>HL7V2</inboundDataType>
+          <outboundDataType>HL7V3</outboundDataType>
+          <inboundProperties class="com.mirth.connect.plugins.datatypes.hl7v2.HL7v2DataTypeProperties" version="3.0.1">
+            <serializationProperties class="com.mirth.connect.plugins.datatypes.hl7v2.HL7v2SerializationProperties" version="3.0.1">
+              <handleRepetitions>true</handleRepetitions>
+              <handleSubcomponents>true</handleSubcomponents>
+              <useStrictParser>false</useStrictParser>
+              <useStrictValidation>false</useStrictValidation>
+              <stripNamespaces>false</stripNamespaces>
+              <segmentDelimiter>\r</segmentDelimiter>
+              <convertLineBreaks>true</convertLineBreaks>
+            </serializationProperties>
+            <deserializationProperties class="com.mirth.connect.plugins.datatypes.hl7v2.HL7v2DeserializationProperties" version="3.0.1">
+              <useStrictParser>false</useStrictParser>
+              <useStrictValidation>false</useStrictValidation>
+              <segmentDelimiter>\r</segmentDelimiter>
+            </deserializationProperties>
+            <responseGenerationProperties class="com.mirth.connect.plugins.datatypes.hl7v2.HL7v2ResponseGenerationProperties" version="3.0.1">
+              <segmentDelimiter>\r</segmentDelimiter>
+              <successfulACKCode>AA</successfulACKCode>
+              <successfulACKMessage></successfulACKMessage>
+              <errorACKCode>AE</errorACKCode>
+              <errorACKMessage>An Error Occured Processing Message.</errorACKMessage>
+              <rejectedACKCode>AR</rejectedACKCode>
+              <rejectedACKMessage>Message Rejected.</rejectedACKMessage>
+              <msh15ACKAccept>false</msh15ACKAccept>
+            </responseGenerationProperties>
+            <responseValidationProperties class="com.mirth.connect.plugins.datatypes.hl7v2.HL7v2ResponseValidationProperties" version="3.0.1">
+              <successfulACKCode>AA</successfulACKCode>
+              <errorACKCode>AE</errorACKCode>
+              <rejectedACKCode>AR</rejectedACKCode>
+            </responseValidationProperties>
+          </inboundProperties>
+          <outboundProperties class="com.mirth.connect.plugins.datatypes.hl7v3.HL7V3DataTypeProperties" version="3.0.1">
+            <serializationProperties class="com.mirth.connect.plugins.datatypes.hl7v3.HL7V3SerializationProperties" version="3.0.1">
+              <stripNamespaces>false</stripNamespaces>
+            </serializationProperties>
+          </outboundProperties>
+        </transformer>
+        <filter version="3.0.1">
+          <rules>
+            <rule>
+              <sequenceNumber>0</sequenceNumber>
+              <name>Accept message if &quot;msg[&apos;MSH&apos;][&apos;MSH.11&apos;][&apos;MSH.11.1&apos;].toString()&quot; exists</name>
+              <data>
+                <entry>
+                  <string>Field</string>
+                  <string>msg[&apos;MSH&apos;][&apos;MSH.11&apos;][&apos;MSH.11.1&apos;].toString()</string>
+                </entry>
+                <entry>
+                  <string>Name</string>
+                  <string></string>
+                </entry>
+                <entry>
+                  <string>OriginalField</string>
+                  <string></string>
+                </entry>
+                <entry>
+                  <string>Equals</string>
+                  <string>2</string>
+                </entry>
+                <entry>
+                  <string>Values</string>
+                  <list/>
+                </entry>
+              </data>
+              <type>Rule Builder</type>
+              <script>if(msg[&apos;MSH&apos;][&apos;MSH.11&apos;][&apos;MSH.11.1&apos;].toString().length &gt; 0)
+    {
+    return true;
+    }
+    return false;</script>
+              <operator>NONE</operator>
+            </rule>
+            <rule>
+              <sequenceNumber>1</sequenceNumber>
+              <name>Accept message if &quot;msg[&apos;PID&apos;][&apos;PID.2&apos;][&apos;PID.2.1&apos;].toString()&quot; exists</name>
+              <data>
+                <entry>
+                  <string>Name</string>
+                  <string></string>
+                </entry>
+                <entry>
+                  <string>Values</string>
+                  <list/>
+                </entry>
+                <entry>
+                  <string>Equals</string>
+                  <string>2</string>
+                </entry>
+                <entry>
+                  <string>Field</string>
+                  <string>msg[&apos;PID&apos;][&apos;PID.2&apos;][&apos;PID.2.1&apos;].toString()</string>
+                </entry>
+                <entry>
+                  <string>OriginalField</string>
+                  <string></string>
+                </entry>
+              </data>
+              <type>Rule Builder</type>
+              <script>if(msg[&apos;PID&apos;][&apos;PID.2&apos;][&apos;PID.2.1&apos;].toString().length &gt; 0)
+    {
+    return true;
+    }
+    return false;</script>
+              <operator>AND</operator>
+            </rule>
+            <rule>
+              <sequenceNumber>2</sequenceNumber>
+              <name>Accept message if &quot;msg[&apos;PID&apos;][&apos;PID.5&apos;][&apos;PID.5.1&apos;].toString()&quot; exists</name>
+              <data>
+                <entry>
+                  <string>Name</string>
+                  <string></string>
+                </entry>
+                <entry>
+                  <string>Values</string>
+                  <list/>
+                </entry>
+                <entry>
+                  <string>Equals</string>
+                  <string>2</string>
+                </entry>
+                <entry>
+                  <string>Field</string>
+                  <string>msg[&apos;PID&apos;][&apos;PID.5&apos;][&apos;PID.5.1&apos;].toString()</string>
+                </entry>
+                <entry>
+                  <string>OriginalField</string>
+                  <string></string>
+                </entry>
+              </data>
+              <type>Rule Builder</type>
+              <script>if(msg[&apos;PID&apos;][&apos;PID.5&apos;][&apos;PID.5.1&apos;].toString().length &gt; 0)
+    {
+    return true;
+    }
+    return false;</script>
+              <operator>AND</operator>
+            </rule>
+            <rule>
+              <sequenceNumber>3</sequenceNumber>
+              <name>Accept message if &quot;msg[&apos;PID&apos;][&apos;PID.5&apos;][&apos;PID.5.2&apos;].toString()&quot; exists</name>
+              <data>
+                <entry>
+                  <string>Name</string>
+                  <string></string>
+                </entry>
+                <entry>
+                  <string>Values</string>
+                  <list/>
+                </entry>
+                <entry>
+                  <string>Equals</string>
+                  <string>2</string>
+                </entry>
+                <entry>
+                  <string>Field</string>
+                  <string>msg[&apos;PID&apos;][&apos;PID.5&apos;][&apos;PID.5.2&apos;].toString()</string>
+                </entry>
+                <entry>
+                  <string>OriginalField</string>
+                  <string></string>
+                </entry>
+              </data>
+              <type>Rule Builder</type>
+              <script>if(msg[&apos;PID&apos;][&apos;PID.5&apos;][&apos;PID.5.2&apos;].toString().length &gt; 0)
+    {
+    return true;
+    }
+    return false;</script>
+              <operator>AND</operator>
+            </rule>
+            <rule>
+              <sequenceNumber>4</sequenceNumber>
+              <name>Accept message if &quot;msg[&apos;PID&apos;][&apos;PID.7&apos;][&apos;PID.7.1&apos;].toString()&quot; exists</name>
+              <data>
+                <entry>
+                  <string>Name</string>
+                  <string></string>
+                </entry>
+                <entry>
+                  <string>Values</string>
+                  <list/>
+                </entry>
+                <entry>
+                  <string>Equals</string>
+                  <string>2</string>
+                </entry>
+                <entry>
+                  <string>Field</string>
+                  <string>msg[&apos;PID&apos;][&apos;PID.7&apos;][&apos;PID.7.1&apos;].toString()</string>
+                </entry>
+                <entry>
+                  <string>OriginalField</string>
+                  <string></string>
+                </entry>
+              </data>
+              <type>Rule Builder</type>
+              <script>if(msg[&apos;PID&apos;][&apos;PID.7&apos;][&apos;PID.7.1&apos;].toString().length &gt; 0)
+    {
+    return true;
+    }
+    return false;</script>
+              <operator>AND</operator>
+            </rule>
+            <rule>
+              <sequenceNumber>5</sequenceNumber>
+              <name>Accept message if &quot;msg[&apos;PID&apos;][&apos;PID.8&apos;][&apos;PID.8.1&apos;].toString()&quot; exists</name>
+              <data>
+                <entry>
+                  <string>Name</string>
+                  <string></string>
+                </entry>
+                <entry>
+                  <string>Values</string>
+                  <list/>
+                </entry>
+                <entry>
+                  <string>Equals</string>
+                  <string>2</string>
+                </entry>
+                <entry>
+                  <string>Field</string>
+                  <string>msg[&apos;PID&apos;][&apos;PID.8&apos;][&apos;PID.8.1&apos;].toString()</string>
+                </entry>
+                <entry>
+                  <string>OriginalField</string>
+                  <string></string>
+                </entry>
+              </data>
+              <type>Rule Builder</type>
+              <script>if(msg[&apos;PID&apos;][&apos;PID.8&apos;][&apos;PID.8.1&apos;].toString().length &gt; 0)
+    {
+    return true;
+    }
+    return false;</script>
+              <operator>AND</operator>
+            </rule>
+            <rule>
+              <sequenceNumber>6</sequenceNumber>
+              <name>Accept message if &quot;msg[&apos;OBR&apos;][&apos;OBR.3&apos;][&apos;OBR.3.1&apos;].toString()&quot; exists</name>
+              <data>
+                <entry>
+                  <string>Name</string>
+                  <string></string>
+                </entry>
+                <entry>
+                  <string>Values</string>
+                  <list/>
+                </entry>
+                <entry>
+                  <string>Equals</string>
+                  <string>2</string>
+                </entry>
+                <entry>
+                  <string>Field</string>
+                  <string>msg[&apos;OBR&apos;][&apos;OBR.3&apos;][&apos;OBR.3.1&apos;].toString()</string>
+                </entry>
+                <entry>
+                  <string>OriginalField</string>
+                  <string></string>
+                </entry>
+              </data>
+              <type>Rule Builder</type>
+              <script>if(msg[&apos;OBR&apos;][&apos;OBR.3&apos;][&apos;OBR.3.1&apos;].toString().length &gt; 0)
+    {
+    return true;
+    }
+    return false;</script>
+              <operator>AND</operator>
+            </rule>
+            <rule>
+              <sequenceNumber>7</sequenceNumber>
+              <name>Accept message if &quot;msg[&apos;OBR&apos;][&apos;OBR.4&apos;][&apos;OBR.4.1&apos;].toString()&quot; exists</name>
+              <data>
+                <entry>
+                  <string>Name</string>
+                  <string></string>
+                </entry>
+                <entry>
+                  <string>Values</string>
+                  <list/>
+                </entry>
+                <entry>
+                  <string>Equals</string>
+                  <string>2</string>
+                </entry>
+                <entry>
+                  <string>Field</string>
+                  <string>msg[&apos;OBR&apos;][&apos;OBR.4&apos;][&apos;OBR.4.1&apos;].toString()</string>
+                </entry>
+                <entry>
+                  <string>OriginalField</string>
+                  <string></string>
+                </entry>
+              </data>
+              <type>Rule Builder</type>
+              <script>if(msg[&apos;OBR&apos;][&apos;OBR.4&apos;][&apos;OBR.4.1&apos;].toString().length &gt; 0)
+    {
+    return true;
+    }
+    return false;</script>
+              <operator>AND</operator>
+            </rule>
+            <rule>
+              <sequenceNumber>8</sequenceNumber>
+              <name>Accept message if &quot;msg[&apos;OBR&apos;][&apos;OBR.4&apos;][&apos;OBR.4.2&apos;].toString()&quot; exists</name>
+              <data>
+                <entry>
+                  <string>Name</string>
+                  <string></string>
+                </entry>
+                <entry>
+                  <string>Values</string>
+                  <list/>
+                </entry>
+                <entry>
+                  <string>Equals</string>
+                  <string>2</string>
+                </entry>
+                <entry>
+                  <string>Field</string>
+                  <string>msg[&apos;OBR&apos;][&apos;OBR.4&apos;][&apos;OBR.4.2&apos;].toString()</string>
+                </entry>
+                <entry>
+                  <string>OriginalField</string>
+                  <string></string>
+                </entry>
+              </data>
+              <type>Rule Builder</type>
+              <script>if(msg[&apos;OBR&apos;][&apos;OBR.4&apos;][&apos;OBR.4.2&apos;].toString().length &gt; 0)
+    {
+    return true;
+    }
+    return false;</script>
+              <operator>AND</operator>
+            </rule>
+            <rule>
+              <sequenceNumber>9</sequenceNumber>
+              <name>Accept if Message Has at least one OBX  segment</name>
+              <data>
+                <entry>
+                  <string>Script</string>
+                  <string>if(msg[&apos;OBX&apos;].length()==0){
+    	return logger.error(&apos;No OBX in Message&apos;) &amp;&amp; false;
+    }
+    return true;</string>
+                </entry>
+              </data>
+              <type>JavaScript</type>
+              <script>if(msg[&apos;OBX&apos;].length()==0){
+    	return logger.error(&apos;No OBX in Message&apos;) &amp;&amp; false;
+    }
+    return true;</script>
+              <operator>AND</operator>
+            </rule>
+            <rule>
+              <sequenceNumber>10</sequenceNumber>
+              <name>Accept if All requied components are present in all OBX segments</name>
+              <data>
+                <entry>
+                  <string>Script</string>
+                  <string>var mandatories=[&apos;OBX.1.1&apos;,&apos;OBX.3.1&apos;,&apos;OBX.3.2&apos;,&apos;OBX.3.3&apos;,&apos;OBX.5.1&apos;,&apos;OBX.6.1&apos;
+    	,&apos;OBX.7.1&apos;,&apos;OBX.8.1&apos;,&apos;OBX.14.1&apos;];
+    for (var i=0; i&lt;msg[&apos;OBX&apos;].length(); i++)
+    	for(var j=0;j&lt;mandatories.length;j++)
+    		if(msg[&apos;OBX&apos;][i]
+    			[mandatories[j].substr(0,mandatories[j].lastIndexOf(&apos;.&apos;))]
+    			[mandatories[j]].toString().length==0)
+    				return logger.error(&apos;OBX segment number &apos;+ (i+1) +
+    			 		&apos;is missing segment &apos;+mandatories[j]) &amp;&amp; false;
+    return true;</string>
+                </entry>
+              </data>
+              <type>JavaScript</type>
+              <script>var mandatories=[&apos;OBX.1.1&apos;,&apos;OBX.3.1&apos;,&apos;OBX.3.2&apos;,&apos;OBX.3.3&apos;,&apos;OBX.5.1&apos;,&apos;OBX.6.1&apos;
+    	,&apos;OBX.7.1&apos;,&apos;OBX.8.1&apos;,&apos;OBX.14.1&apos;];
+    for (var i=0; i&lt;msg[&apos;OBX&apos;].length(); i++)
+    	for(var j=0;j&lt;mandatories.length;j++)
+    		if(msg[&apos;OBX&apos;][i]
+    			[mandatories[j].substr(0,mandatories[j].lastIndexOf(&apos;.&apos;))]
+    			[mandatories[j]].toString().length==0)
+    				return logger.error(&apos;OBX segment number &apos;+ (i+1) +
+    			 		&apos;is missing segment &apos;+mandatories[j]) &amp;&amp; false;
+    return true;</script>
+              <operator>AND</operator>
+            </rule>
+          </rules>
+        </filter>
+        <transportName>File Reader</transportName>
+        <mode>SOURCE</mode>
+        <enabled>true</enabled>
+        <waitForPrevious>true</waitForPrevious>
+      </sourceConnector>
+      <destinationConnectors>
+        <connector version="3.0.1">
+          <metaDataId>1</metaDataId>
+          <name>Destination 1</name>
+          <properties class="com.mirth.connect.connectors.file.FileDispatcherProperties" version="3.0.1">
+            <queueConnectorProperties version="3.0.1">
+              <queueEnabled>false</queueEnabled>
+              <sendFirst>false</sendFirst>
+              <retryIntervalMillis>10000</retryIntervalMillis>
+              <regenerateTemplate>false</regenerateTemplate>
+              <retryCount>0</retryCount>
+              <rotate>false</rotate>
+              <threadCount>1</threadCount>
+            </queueConnectorProperties>
+            <scheme>FILE</scheme>
+            <host>/Users/rezaalemy/Desktop/V3</host>
+            <outputPattern>${message.messageId}.xml</outputPattern>
+            <anonymous>true</anonymous>
+            <username>anonymous</username>
+            <password>anonymous</password>
+            <timeout>10000</timeout>
+            <secure>true</secure>
+            <passive>true</passive>
+            <validateConnection>true</validateConnection>
+            <outputAppend>false</outputAppend>
+            <errorOnExists>false</errorOnExists>
+            <temporary>false</temporary>
+            <binary>false</binary>
+            <charsetEncoding>DEFAULT_ENCODING</charsetEncoding>
+            <template>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+    ${XmlUtil.prettyPrint(${message.transformedData.replaceAll(&quot;&lt;([/]*)&quot;,&quot;&lt;$1hl7:&quot;)})}
+    </template>
+          </properties>
+          <transformer version="3.0.1">
+            <steps/>
+            <inboundTemplate encoding="base64"></inboundTemplate>
+            <outboundTemplate encoding="base64"></outboundTemplate>
+            <inboundDataType>HL7V3</inboundDataType>
+            <outboundDataType>RAW</outboundDataType>
+            <inboundProperties class="com.mirth.connect.plugins.datatypes.hl7v3.HL7V3DataTypeProperties" version="3.0.1">
+              <serializationProperties class="com.mirth.connect.plugins.datatypes.hl7v3.HL7V3SerializationProperties" version="3.0.1">
+                <stripNamespaces>false</stripNamespaces>
+              </serializationProperties>
+            </inboundProperties>
+            <outboundProperties class="com.mirth.connect.plugins.datatypes.raw.RawDataTypeProperties" version="3.0.1"/>
+          </transformer>
+          <responseTransformer version="3.0.1">
+            <steps/>
+            <inboundDataType>HL7V3</inboundDataType>
+            <outboundDataType>HL7V3</outboundDataType>
+            <inboundProperties class="com.mirth.connect.plugins.datatypes.hl7v3.HL7V3DataTypeProperties" version="3.0.1">
+              <serializationProperties class="com.mirth.connect.plugins.datatypes.hl7v3.HL7V3SerializationProperties" version="3.0.1">
+                <stripNamespaces>true</stripNamespaces>
+              </serializationProperties>
+            </inboundProperties>
+            <outboundProperties class="com.mirth.connect.plugins.datatypes.hl7v3.HL7V3DataTypeProperties" version="3.0.1">
+              <serializationProperties class="com.mirth.connect.plugins.datatypes.hl7v3.HL7V3SerializationProperties" version="3.0.1">
+                <stripNamespaces>true</stripNamespaces>
+              </serializationProperties>
+            </outboundProperties>
+          </responseTransformer>
+          <filter version="3.0.1">
+            <rules/>
+          </filter>
+          <transportName>File Writer</transportName>
+          <mode>DESTINATION</mode>
+          <enabled>true</enabled>
+          <waitForPrevious>true</waitForPrevious>
+        </connector>
+      </destinationConnectors>
+      <preprocessingScript>// Modify the message variable below to pre process data
+    return message;</preprocessingScript>
+      <postprocessingScript>// This script executes once after a message has been processed
+    // Responses returned from here will be stored as &quot;Postprocessor&quot; in the response map
+    return;</postprocessingScript>
+      <deployScript>// This script executes once when the channel is deployed
+    // You only have access to the globalMap and globalChannelMap here to persist data
+    return;</deployScript>
+      <shutdownScript>// This script executes once when the channel is undeployed
+    // You only have access to the globalMap and globalChannelMap here to persist data
+    return;</shutdownScript>
+      <properties version="3.0.1">
+        <clearGlobalChannelMap>true</clearGlobalChannelMap>
+        <messageStorageMode>DEVELOPMENT</messageStorageMode>
+        <encryptData>false</encryptData>
+        <removeContentOnCompletion>false</removeContentOnCompletion>
+        <removeAttachmentsOnCompletion>false</removeAttachmentsOnCompletion>
+        <initialState>STARTED</initialState>
+        <storeAttachments>false</storeAttachments>
+        <tags class="linked-hash-set"/>
+        <metaDataColumns>
+          <metaDataColumn>
+            <name>SOURCE</name>
+            <type>STRING</type>
+            <mappingName>mirth_source</mappingName>
+          </metaDataColumn>
+          <metaDataColumn>
+            <name>TYPE</name>
+            <type>STRING</type>
+            <mappingName>mirth_type</mappingName>
+          </metaDataColumn>
+        </metaDataColumns>
+        <attachmentProperties>
+          <type>None</type>
+          <properties/>
+        </attachmentProperties>
+        <archiveEnabled>true</archiveEnabled>
+      </properties>
+    </channel>
